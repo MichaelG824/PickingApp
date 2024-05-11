@@ -13,4 +13,8 @@ export class PickService {
     console.log('Get Current Pick ID: ', id);
     return this.http.get(`${this.BASE_URL}/api/v1/picks/${id}`);
   }
+
+  updateCurrentPick(pickId: number, status: string, exceptionDetail: string | undefined): Observable<any> {
+    return this.http.put(`${this.BASE_URL}/api/v1/update-status`, { pickId, status, exceptionDetail });
+  }
 }

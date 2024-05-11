@@ -1,12 +1,5 @@
 <div>
-  <div>
-    <span>Location <input /></span>
-  </div>
-  <div>
-    <span>SKU | Title <input /></span>
-  </div>
-  <div>
-    <span>Quantity <input /></span>
-  </div>
-
+  <app-current-pick-details [currentPick]="currentPick"/>
+  <app-pick-form [currentPick]="currentPick" (handleExceptionEvent)="handleException($event)"
+  (handleSubmitEvent)="handlePickSubmission($event)" />
 </div>

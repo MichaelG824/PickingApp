@@ -1,6 +1,10 @@
 import {createReducer, on} from "@ngrx/store";
-import {loadOrdersSuccess} from "../action/order.actions";
-import {loadCurrentPickSuccess} from "../action/pick.actions";
+import {
+  loadCurrentPickSuccess,
+  loadPickIdsSuccess,
+  updateCurrentPickIndex,
+  updateCurrentPickIndexSuccess
+} from "../action/pick.actions";
 
 export interface PickState {
   pickIds: number[];
@@ -25,6 +29,23 @@ export const pickReducer = createReducer(
     return ({
       ...state,
       currentPick: currentPick,
+      loading: false,
+      error: null,
+    })
+  }),
+  on(loadPickIdsSuccess, (state, { pickIds }) => {
+    return ({
+      ...state,
+      pickIds,
+      loading: false,
+      error: null,
+    })
+  }),
+  on(updateCurrentPickIndexSuccess, (state, { currentIndex }) => {
+    console.log('Current Index: ', currentIndex);
+    return ({
+      ...state,
+      currentIndex,
       loading: false,
       error: null,
     })

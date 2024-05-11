@@ -8,6 +8,17 @@ export const selectCurrentPick = createSelector(
   (state: PickState) => state.currentPick
 );
 
+export const selectPickIds= createSelector(
+  selectOrderFeature,
+  (state: PickState) => state.pickIds
+)
+
+export const selectCurrentPickIndex = createSelector(
+  selectOrderFeature,
+  (state: PickState) => state.currentIndex
+)
 export const providePickSelectors = () => [
-  selectCurrentPick
+  selectCurrentPick,
+  selectPickIds,
+  selectCurrentPickIndex,
 ];

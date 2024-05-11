@@ -3,7 +3,10 @@
   <p>Name: {{ order.fakeName }}</p>
   <p>Order Date: {{ order.orderDate }}</p>
   <div *ngFor="let item of order.itemNames">
-    <div (click)="navigateToDetail(item.pickId)">
+    <div [ngClass]="{
+   'green': item?.status === 'Picked',
+   'red': item?.status === 'Exception'
+}" (click)="navigateToDetail(item.pickId)">
       <h4>{{ item.dinnerTitle }}</h4>
       <p>SKU: {{ item.sku }}</p>
       <p>Location: {{ item.location }}</p>
