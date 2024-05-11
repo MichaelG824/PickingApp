@@ -33,11 +33,9 @@ export class PickListComponent implements OnInit {
   }
 
   public async navigateToDetail(pickId: number) {
-
     this.store.select(selectPickIds).pipe(take(1)).subscribe((pickIds) => {
       const currentIndex= pickIds.indexOf(pickId);
       this.store.dispatch(updateCurrentPickIndex({ currentIndex }));
-
     });
   }
 

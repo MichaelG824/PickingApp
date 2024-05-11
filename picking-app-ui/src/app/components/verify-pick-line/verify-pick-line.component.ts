@@ -2,14 +2,15 @@ import {Component, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {ActivatedRoute} from "@angular/router";
 import {
-  loadCurrentPick,
-  navigateNextPick,
+  loadCurrentPick, loadPickIds,
   updateCurrentPick,
   updateCurrentPickIndex
 } from "../../ngrx/action/pick.actions";
-import {selectCurrentPick, selectCurrentPickIndex} from "../../ngrx/selectors/pick.selector";
+import {selectCurrentPick, selectCurrentPickIndex, selectPickIds} from "../../ngrx/selectors/pick.selector";
 import {PickFormComponent} from "../pick-form/pick-form.component";
 import {CurrentPickDetailsComponent} from "../current-pick-details/current-pick-details.component";
+import {selectAllOrders} from "../../ngrx/selectors/order.selector";
+import {loadOrders} from "../../ngrx/action/order.actions";
 
 @Component({
   selector: 'app-verify-pick-line',
@@ -23,26 +24,38 @@ import {CurrentPickDetailsComponent} from "../current-pick-details/current-pick-
 })
 export class VerifyPickLineComponent implements OnInit {
   currentPick: any;
-  pickId: string | undefined;
+  pickId: number;
   pickIndex: number;
 
   constructor(private store: Store,  private route: ActivatedRoute) {
     this.pickIndex = 0;
+    this.pickId = -1;
   }
 
   ngOnInit(): void {
-    console.log('hit this file')
+    this.store.select(selectAllOrders).subscribe((orders: any) => {
+      if (!orders?.length) {
+        this.store.dispatch(loadOrders());
+      } else {
+        this.getPicksFromPickListAndLoad(orders);
+      }
+    });
     this.route.params.subscribe((params: { [x: string]: any; }) => {
-      this.pickId = params['pickId'];
-      console.log('PickId: ', this.pickId);
+      this.pickId = Number(params['pickId']);
       this.store.dispatch(loadCurrentPick({ currentPickId: this.pickId }))
     });
     this.store.select(selectCurrentPick).subscribe((currentPick) => {
-      console.log('Current pick: ', currentPick);
       this.currentPick = currentPick;
     });
     this.store.select(selectCurrentPickIndex).subscribe((pickIndex) => {
       this.pickIndex = pickIndex;
+    });
+
+    this.store.select(selectPickIds).subscribe((pickIds) => {
+      const currentIndex= pickIds.indexOf(this.pickId);
+      if (currentIndex > -1) {
+        this.store.dispatch(updateCurrentPickIndex({ currentIndex }));
+      }
     });
   }
 
@@ -54,5 +67,10 @@ export class VerifyPickLineComponent implements OnInit {
   handlePickSubmission(pickInfo: any) {
     this.store.dispatch(updateCurrentPick({ currentPickId: this.pickId, status: 'Picked' }));
     this.store.dispatch(updateCurrentPickIndex({ currentIndex: this.pickIndex + 1 }));
+  }
+  private getPicksFromPickListAndLoad(orders: { itemNames: any[]; }[]) {
+    const pickIds = orders.flatMap((order: { itemNames: any[]; }) => order.itemNames.map(item => item.pickId));
+    console.log('PickIds: ', pickIds);
+    this.store.dispatch(loadPickIds({ pickIds }))
   }
 }

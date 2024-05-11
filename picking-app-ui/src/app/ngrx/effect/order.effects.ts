@@ -18,7 +18,6 @@ export class OrderEffects {
     mergeMap(() => this.dataService.getOrders()
       .pipe(
         map(orders => {
-          console.log('hit effects orders: ', orders);
           return loadOrdersSuccess({ orders })
         }),
         catchError(error => of(loadOrdersFailure({ error })))

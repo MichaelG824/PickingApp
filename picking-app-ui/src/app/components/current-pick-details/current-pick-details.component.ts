@@ -13,7 +13,5 @@ import {NgForOf} from "@angular/common";
 export class CurrentPickDetailsComponent {
   @Input() currentPick: any;
 
-  constructor() {
-    console.log('current Pick: ', this.currentPick);
-  }
+  constructor() {}
 }

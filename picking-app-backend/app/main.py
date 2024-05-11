@@ -12,16 +12,14 @@ class CamelCaseMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
         response = await call_next(request)
 
-        # Check if the response is a StreamingResponse or similar
         if isinstance(response, StreamingResponse):
-            return response  # Do not attempt to modify StreamingResponse
+            return response
 
-        # Ensure response is JSON and has a body attribute
         if isinstance(response, JSONResponse):
-            data = response.body.decode()  # Assuming body is a byte string
-            modified_data = json.loads(data)  # Convert string to dictionary
-            camelized_data = camelize(modified_data)  # Camelize keys
-            response.body = json.dumps(camelized_data).encode('utf-8')  # Convert back to byte string
+            data = response.body.decode()
+            modified_data = json.loads(data)
+            camelized_data = camelize(modified_data)
+            response.body = json.dumps(camelized_data).encode('utf-8')
         return response
 
 app = FastAPI()
