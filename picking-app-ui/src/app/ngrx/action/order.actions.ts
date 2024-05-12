@@ -1,4 +1,3 @@
-// src/app/store/actions/order.actions.ts
 import { createAction, props } from '@ngrx/store';
 
 export const loadOrders = createAction('[Order] Load Orders');

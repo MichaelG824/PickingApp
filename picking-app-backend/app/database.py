@@ -5,7 +5,7 @@ import pandas as pd
 import asyncio
 from itertools import count
 from humps import camelize
-from models.models import Base, ProductMaster, Orders, OrderLines
+from models.db_table_model import Base, ProductMaster, Orders, OrderLines
 from re import sub
 
 DATABASE_URL = "sqlite+aiosqlite:///warehouse.db"
@@ -38,7 +38,7 @@ async def load_data(session, df, table_class):
         await session.commit()
     except Exception as e:
         await session.rollback()
-        print(f"Error loading data into {table_class.__tablename__}: {e}")
+        print(f"Error loading data: ", e)
 
 async def load_initial_data():
     async with AsyncSessionFactory() as session:
@@ -60,10 +60,3 @@ async def load_initial_data():
 async def get_session():
     async with AsyncSessionFactory() as session:
         yield session
-
-async def main():
-    await initialize_database()
-    await load_initial_data()
-
-if __name__ == '__main__':
-    asyncio.run(main())

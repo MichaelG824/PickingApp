@@ -1,6 +1,6 @@
 <div *ngFor="let order of orders">
   <h2>Order Number: {{ order.orderNumber }}</h2>
-  <p>Name: {{ order.fakeName }}</p>
+  <p>Name: {{ order.name }}</p>
   <p>Order Date: {{ order.orderDate }}</p>
   <div *ngFor="let item of order.itemNames">
     <div [ngClass]="{
