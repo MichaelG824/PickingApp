@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {ActivatedRoute} from "@angular/router";
 import {
@@ -11,6 +11,7 @@ import {PickFormComponent} from "../pick-form/pick-form.component";
 import {CurrentPickDetailsComponent} from "../current-pick-details/current-pick-details.component";
 import {selectAllOrders} from "../../ngrx/selectors/order.selector";
 import {loadOrders} from "../../ngrx/action/order.actions";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-verify-pick-line',
@@ -22,24 +23,25 @@ import {loadOrders} from "../../ngrx/action/order.actions";
   templateUrl: './verify-pick-line.component.html',
   styleUrl: './verify-pick-line.component.scss'
 })
-export class VerifyPickLineComponent implements OnInit {
+export class VerifyPickLineComponent implements OnInit, OnDestroy {
   currentPick: any;
   pickId: number;
   pickIndex: number;
-
+  subscriptions: Subscription[] = [];
   constructor(private store: Store,  private route: ActivatedRoute) {
     this.pickIndex = 0;
     this.pickId = -1;
   }
 
   ngOnInit(): void {
-    this.store.select(selectAllOrders).subscribe((orders: any) => {
+    const selectOrderSub = this.store.select(selectAllOrders).subscribe((orders: any) => {
       if (!orders?.length) {
         this.store.dispatch(loadOrders());
       } else {
         this.getPicksFromPickListAndLoad(orders);
       }
     });
+    this.subscriptions.push(selectOrderSub);
     this.route.params.subscribe((params: { [x: string]: any; }) => {
       this.pickId = Number(params['pickId']);
       this.store.dispatch(loadCurrentPick({ currentPickId: this.pickId }))
@@ -58,6 +60,9 @@ export class VerifyPickLineComponent implements OnInit {
       }
     });
   }
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
 
   handleException(exceptionDetail: string) {
     this.store.dispatch(updateCurrentPick({ currentPickId: this.pickId, exceptionDetail, status: 'Exception' }));
@@ -70,7 +75,7 @@ export class VerifyPickLineComponent implements OnInit {
   }
   private getPicksFromPickListAndLoad(orders: { itemNames: any[]; }[]) {
     const pickIds = orders.flatMap((order: { itemNames: any[]; }) => order.itemNames.map(item => item.pickId));
-    console.log('PickIds: ', pickIds);
+    console.log('Hit pick ids: ', pickIds);
     this.store.dispatch(loadPickIds({ pickIds }))
   }
 }

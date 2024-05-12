@@ -10,6 +10,6 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   getOrders(): Observable<any> {
-    return this.http.get(`${this.BASE_URL}/api/v1/orders`);
+    return this.http.get(`${this.BASE_URL}/api/v1/picks/get-pick-list-data`);
   }
 }

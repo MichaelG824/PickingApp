@@ -1,12 +1,12 @@
-# filename: main.py
 from fastapi import FastAPI
-from routers.orders_router import router as orders_router
+from routers.pick_router import router as pick_router
 from database import initialize_database, load_initial_data
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, Request
 from starlette.middleware.base import BaseHTTPMiddleware
 from humps import camelize
-from starlette.responses import Response, JSONResponse, StreamingResponse  # Include StreamingResponse here
+from starlette.responses import Response, JSONResponse, StreamingResponse
+import asyncio
 
 class CamelCaseMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
@@ -36,14 +36,10 @@ app.add_middleware(
 
 @app.on_event("startup")
 async def startup_event():
-    print("Initializing the database and loading data...")
-    initialize_database()
-    load_initial_data()
-    print("Database setup complete.")
+    await initialize_database()
+    await load_initial_data()
 
-
-# Mount the orders router
-app.include_router(orders_router, prefix="/api/v1", tags=["orders"])
+app.include_router(pick_router, prefix="/api/v1/picks", tags=["pick"])
 
 if __name__ == "__main__":
     import uvicorn

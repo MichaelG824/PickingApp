@@ -4,9 +4,7 @@ import {Store} from "@ngrx/store";
 import {loadOrders} from "../../ngrx/action/order.actions";
 import {selectAllOrders} from "../../ngrx/selectors/order.selector";
 import {Router} from "@angular/router";
-import {loadPickIds, updateCurrentPickIndex} from "../../ngrx/action/pick.actions";
-import {selectPickIds} from "../../ngrx/selectors/pick.selector";
-import {take} from "rxjs";
+
 
 @Component({
   selector: 'app-pick-list',
@@ -27,21 +25,10 @@ export class PickListComponent implements OnInit {
     this.store.dispatch(loadOrders());
     this.store.select(selectAllOrders).subscribe((orders: any) => {
       this.orders = orders;
-      // Fill out the pick id array
-      this.getPicksFromPickListAndLoad(this.orders);
     });
   }
 
   public async navigateToDetail(pickId: number) {
-    this.store.select(selectPickIds).pipe(take(1)).subscribe((pickIds) => {
-      const currentIndex= pickIds.indexOf(pickId);
-      this.store.dispatch(updateCurrentPickIndex({ currentIndex }));
-    });
-  }
-
-  private getPicksFromPickListAndLoad(orders: { itemNames: any[]; }[]) {
-    const pickIds = orders.flatMap((order: { itemNames: any[]; }) => order.itemNames.map(item => item.pickId));
-    console.log('PickIds', pickIds);
-    this.store.dispatch(loadPickIds({ pickIds }))
+    await this.router.navigate(['/verify-pick', pickId]);
   }
 }
