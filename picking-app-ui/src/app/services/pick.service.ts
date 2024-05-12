@@ -15,6 +15,6 @@ export class PickService {
   }
 
   updateCurrentPick(pickId: number, status: string, exceptionDetails: string | undefined): Observable<any> {
-    return this.http.put(`${this.BASE_URL}/api/v1/picks/update-status`, { pickId, status, exceptionDetails });
+    return this.http.put(`${this.BASE_URL}/api/v1/picks/update-status-and-exception-details`, { pickId, status, exceptionDetails });
   }
 }

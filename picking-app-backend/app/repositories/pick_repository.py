@@ -1,6 +1,8 @@
 from models.db_table_model import Orders, OrderLines, ProductMaster
 from sqlalchemy import select
 from models.pick_model import PickModel
+from typing import Union
+from enums.status_enum import StatusEnum
 
 class PickRepository:
     def __init__(self, session):
@@ -28,12 +30,13 @@ class PickRepository:
             title=pick.product_master.title
         )
 
-    async def get_order_line_by_pick_id(self, pick_id) -> OrderLines:
+    async def get_order_line_by_pick_id(self, pick_id: int) -> OrderLines:
         result = await self.session.execute(
             select(OrderLines).filter(OrderLines.pick_id == pick_id)
         )
         return result.scalars().first()
 
-    async def update_order_line_status(self, order_line, status) -> None:
+    async def update_order_line_status_and_exception_details(self, order_line: OrderLines, status: StatusEnum, exception_details: Union[str, None]) -> None:
         order_line.status = status
+        order_line.exception_details = exception_details if exception_details else order_line.exception_details
         await self.session.commit()

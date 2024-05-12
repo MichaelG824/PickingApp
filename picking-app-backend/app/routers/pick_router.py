@@ -29,11 +29,11 @@ async def get_pick_by_id(pick_id: str, session: AsyncSession = Depends(get_sessi
         logging.error(e, exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.put("/update-status")
-async def update_pick_status(request: UpdateStatusRequestDto, session: AsyncSession = Depends(get_session)):
+@router.put("/update-status-and-exception-details")
+async def update_order_line_status_and_exception_details(request: UpdateStatusRequestDto, session: AsyncSession = Depends(get_session)):
     try:
         pick_service = PickService(session)
-        await pick_service.update_pick_status(request)
+        await pick_service.update_order_line_status_and_exception_details(request)
         return {"message": "Order line status updated successfully"}
     except Exception as e:
         logging.error(e, exc_info=True)

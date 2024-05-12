@@ -22,10 +22,9 @@ class PickService:
             raise Exception("Pick not found")
         return transform_to_get_pick_by_id_response_dto(pick)
 
-    async def update_pick_status(self, request: UpdateStatusRequestDto) -> None:
+    async def update_order_line_status_and_exception_details(self, request: UpdateStatusRequestDto) -> None:
         order_line = await self.pick_repository.get_order_line_by_pick_id(request.pick_id)
-        print(order_line)
         if not order_line:
             raise Exception("Order line not found")
-        print(order_line)
-        await self.pick_repository.update_order_line_status(order_line, request.status)
+        exception_details = request.exception_details if request.exception_details else None
+        await self.pick_repository.update_order_line_status_and_exception_details(order_line, request.status, exception_details)
