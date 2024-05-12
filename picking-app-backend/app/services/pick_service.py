@@ -1,5 +1,4 @@
 from repositories.pick_repository import PickRepository
-import logging
 from dtos.requests.update_status_request_dto import UpdateStatusRequestDto
 from dtos.responses.get_pick_by_id_response_dto import GetPickByIdResponseDto
 from transformers.model_to_dto import transform_to_get_pick_by_id_response_dto, transform_order_with_line_data_to_pick_line_data_dto

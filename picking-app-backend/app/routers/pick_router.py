@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, Depends
 from services.pick_service import PickService
 from sqlalchemy.orm import Session
 from dtos.requests.update_status_request_dto import UpdateStatusRequestDto
-from database import get_session
+from db.database import get_session
 import logging
 from sqlalchemy.ext.asyncio import AsyncSession
 import json

@@ -9,7 +9,7 @@ def transform_to_get_pick_by_id_response_dto(pick: PickModel) -> GetPickByIdResp
         pick_id=pick.pick_id,
         pick_qty=pick.pick_qty,
         sku=pick.sku,
-        title=pick.product_master.title
+        title=pick.title
     )
 
 def transform_order_with_line_data_to_pick_line_data_dto(order) -> PickLineDataResponseDto:

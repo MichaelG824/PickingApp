@@ -1,7 +1,5 @@
 from models.db_table_model import Orders, OrderLines, ProductMaster
-from database import get_session
-from sqlalchemy import select, exists, text, distinct
-from sqlalchemy.orm import joinedload
+from sqlalchemy import select
 from models.pick_model import PickModel
 
 class PickRepository:
@@ -23,7 +21,7 @@ class PickRepository:
         pick = result.scalars().first()
         return PickModel(
             location=pick.location,
-            order=pick.order_number,
+            order_number=pick.order_number,
             pick_id=pick.pick_id,
             pick_qty=pick.pick_qty,
             sku=pick.sku,

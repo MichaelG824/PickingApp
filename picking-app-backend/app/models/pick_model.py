@@ -2,7 +2,7 @@ from pydantic import BaseModel
 
 class PickModel(BaseModel):
     location: str
-    order: str
+    order_number: str
     pick_id: int
     pick_qty: int
     sku: int
