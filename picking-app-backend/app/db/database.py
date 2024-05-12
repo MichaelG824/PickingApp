@@ -2,9 +2,9 @@ from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import insert
 import pandas as pd
-from itertools import count
 from models.db_table_model import Base, ProductMaster, Orders, OrderLines
 from db.database_util import preprocess_data, new_pick_ids_for_duplicates
+import logging
 
 DATABASE_URL = "sqlite+aiosqlite:///warehouse.db"
 engine = create_async_engine(DATABASE_URL, echo=True)
@@ -22,9 +22,9 @@ async def load_data(session, df, table_class):
         await session.commit()
     except Exception as e:
         await session.rollback()
-        print("Error loading data: ", e)
+        logging.error("Exception: ", e)
 
-async def load_initial_data():
+async def load_initial_data() -> None:
     async with AsyncSessionFactory() as session:
         product_master = preprocess_data(pd.read_csv('data/product_master.csv'), 'product_master')
         orders = preprocess_data(pd.read_csv('data/orders.csv'), 'orders')

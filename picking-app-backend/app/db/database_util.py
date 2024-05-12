@@ -1,4 +1,5 @@
 from re import sub
+from itertools import count
 
 def convert_to_snake_case(s: str) -> str:
     return '_'.join(

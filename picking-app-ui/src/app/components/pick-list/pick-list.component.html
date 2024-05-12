@@ -1,17 +1,15 @@
-<div *ngFor="let order of orders">
-  <h2>Order Number: {{ order.orderNumber }}</h2>
-  <p>Name: {{ order.name }}</p>
-  <p>Order Date: {{ order.orderDate }}</p>
-  <div *ngFor="let item of order.itemNames">
-    <div [ngClass]="{
-   'green': item?.status === 'Picked',
-   'red': item?.status === 'Exception'
-}" (click)="navigateToDetail(item.pickId)">
-      <h4>{{ item.title }}</h4>
-      <p>SKU: {{ item.sku }}</p>
-      <p>Location: {{ item.location }}</p>
-      <p>Pick Qty: {{ item.pickQty }}</p>
+<div>
+  <h1 class="heading">Picking App</h1>
+  <div *ngFor="let order of orders">
+    <h2>Order Number: {{ order.orderNumber }}</h2>
+    <span class="pick-list-name">Name: {{ order.name }}</span>
+    <span>Order Date: {{ order.orderDate }}</span>
+    <div class="container">
+      <div *ngFor="let pick of order.orderLines">
+        <app-pick-list-card [pick]="pick" (click)="navigateToDetail(pick.pickId)" />
+      </div>
     </div>
+    <hr>
   </div>
-  <hr>
 </div>
+

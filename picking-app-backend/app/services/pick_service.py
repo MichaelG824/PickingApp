@@ -24,6 +24,8 @@ class PickService:
 
     async def update_pick_status(self, request: UpdateStatusRequestDto) -> None:
         order_line = await self.pick_repository.get_order_line_by_pick_id(request.pick_id)
+        print(order_line)
         if not order_line:
             raise Exception("Order line not found")
+        print(order_line)
         await self.pick_repository.update_order_line_status(order_line, request.status)

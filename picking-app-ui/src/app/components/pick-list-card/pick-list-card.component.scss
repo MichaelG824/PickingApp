@@ -1,0 +1,40 @@
+
+.dot-green {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: green;
+}
+
+.dot-red {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: red;
+}
+
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: auto;
+  border-radius: 4px;
+  background-color: #fff;
+  text-align: center;
+  margin: 20px;
+  padding: 20px;
+  transition: .3s;
+  box-shadow: 1px 0 5px 0 rgba(0,0,0,0.6) ;
+}
+
+.card:hover {
+  background-color: #9aa0a6;
+  cursor: pointer;
+}
+

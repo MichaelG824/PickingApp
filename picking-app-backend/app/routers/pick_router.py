@@ -36,5 +36,5 @@ async def update_pick_status(request: UpdateStatusRequestDto, session: AsyncSess
         await pick_service.update_pick_status(request)
         return {"message": "Order line status updated successfully"}
     except Exception as e:
-        logging.error(f"Exception: {e}")
+        logging.error(e, exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))

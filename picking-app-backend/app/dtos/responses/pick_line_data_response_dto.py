@@ -13,4 +13,4 @@ class PickLineDataResponseDto(BaseModel):
     order_number: str
     name: str
     order_date: str
-    item_names: List[OrderLineDTO]
+    order_lines: List[OrderLineDTO]

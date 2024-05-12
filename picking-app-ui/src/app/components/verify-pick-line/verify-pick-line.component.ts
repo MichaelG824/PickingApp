@@ -64,8 +64,8 @@ export class VerifyPickLineComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  handleException(exceptionDetail: string) {
-    this.store.dispatch(updateCurrentPick({ currentPickId: this.pickId, exceptionDetail, status: 'Exception' }));
+  handleException(exceptionDetails: string) {
+    this.store.dispatch(updateCurrentPick({ currentPickId: this.pickId, exceptionDetails, status: 'Exception' }));
     this.store.dispatch(updateCurrentPickIndex({ currentIndex: this.pickIndex + 1 }));
   }
 
@@ -73,8 +73,8 @@ export class VerifyPickLineComponent implements OnInit, OnDestroy {
     this.store.dispatch(updateCurrentPick({ currentPickId: this.pickId, status: 'Picked' }));
     this.store.dispatch(updateCurrentPickIndex({ currentIndex: this.pickIndex + 1 }));
   }
-  private getPicksFromPickListAndLoad(orders: { itemNames: any[]; }[]) {
-    const pickIds = orders.flatMap((order: { itemNames: any[]; }) => order.itemNames.map(item => item.pickId));
+  private getPicksFromPickListAndLoad(picks: any) {
+    const pickIds = picks.flatMap((pick: any) => pick.orderLines.map((item: { pickId: any; }) => item.pickId));
     this.store.dispatch(loadPickIds({ pickIds }))
   }
 }

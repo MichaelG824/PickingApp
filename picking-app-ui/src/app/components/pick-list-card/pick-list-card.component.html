@@ -1,0 +1,10 @@
+<div class="card">
+  <span [ngClass]="{
+   'dot-green': pick?.status === 'Picked',
+   'dot-red': pick?.status === 'Exception'
+}"></span>
+  <h4>{{ pick?.title }}</h4>
+  <p>SKU: {{ pick?.sku }}</p>
+  <p>Location: {{ pick?.location }}</p>
+  <p>Pick Qty: {{ pick?.pickQty }}</p>
+</div>

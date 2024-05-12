@@ -4,6 +4,7 @@ import {Store} from "@ngrx/store";
 import {loadOrders} from "../../ngrx/action/order.actions";
 import {selectAllOrders} from "../../ngrx/selectors/order.selector";
 import {Router} from "@angular/router";
+import {PickListCardComponent} from "../pick-list-card/pick-list-card.component";
 
 
 @Component({
@@ -11,7 +12,8 @@ import {Router} from "@angular/router";
   standalone: true,
   imports: [
     NgForOf,
-    NgClass
+    NgClass,
+    PickListCardComponent
   ],
   templateUrl: './pick-list.component.html',
   styleUrl: './pick-list.component.scss'

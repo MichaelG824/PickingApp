@@ -17,7 +17,7 @@ def transform_order_with_line_data_to_pick_line_data_dto(order) -> PickLineDataR
         order_number=order.order_number,
         name=order.name,
         order_date=order.order_date,
-        item_names=[
+        order_lines=[
             OrderLineDTO(
                 title=line.product_master.title,
                 sku=line.product_master.sku,

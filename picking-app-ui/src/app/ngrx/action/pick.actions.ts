@@ -4,7 +4,7 @@ export const loadCurrentPick = createAction('[Pick] Load Current Pick', props<{ 
 export const loadCurrentPickSuccess = createAction('[Pick] Load Current Pick Success', props<{ currentPick: any }>());
 export const loadCurrentPickFailure = createAction('[Pick] Load Current Pick Failure', props<{ error: any }>());
 
-export const updateCurrentPick = createAction('[Pick] Update Current Pick', props<{ currentPickId: any, status: any, exceptionDetail?: string }>());
+export const updateCurrentPick = createAction('[Pick] Update Current Pick', props<{ currentPickId: any, status: any, exceptionDetails?: string }>());
 export const updateCurrentPickSuccess = createAction('[Pick] Update Current Pick Success', props<{ currentPick: any }>());
 
 export const loadPickIds= createAction('[Pick] Load PickIds', props<{ pickIds: number[] }>());

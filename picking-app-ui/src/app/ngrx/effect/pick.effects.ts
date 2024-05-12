@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { of } from 'rxjs';
+import {of, switchMap, take, withLatestFrom} from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import {
   loadCurrentPick,
@@ -17,7 +17,7 @@ import {
 } from "../action/pick.actions";
 import {PickService} from "../../services/pick.service";
 import {Router} from "@angular/router";
-import {Store} from "@ngrx/store";
+import {select, Store} from "@ngrx/store";
 import {selectPickIds} from "../selectors/pick.selector";
 
 @Injectable()
@@ -41,7 +41,7 @@ export class PickEffects {
   ));
   updateCurrentPick$ = createEffect(() => this.actions$.pipe(
     ofType(updateCurrentPick),
-    mergeMap(({ currentPickId, status, exceptionDetail }) => this.pickService.updateCurrentPick(currentPickId, status, exceptionDetail)
+    mergeMap(({ currentPickId, status, exceptionDetails }) => this.pickService.updateCurrentPick(currentPickId, status, exceptionDetails)
       .pipe(
         map(pick => {
           console.log('hit update current pick', pick);
@@ -59,11 +59,15 @@ export class PickEffects {
   ));
   updateCurrentPickIndex$ = createEffect(() => this.actions$.pipe(
     ofType(updateCurrentPickIndex),
-    map(({ currentIndex}) => {
-      this.store.select(selectPickIds).subscribe((pickIds: number[]) => {
-        this.router.navigate(['/verify-pick', pickIds[currentIndex]]);
-      });
-      return updateCurrentPickIndexSuccess({ currentIndex });
+    withLatestFrom(this.store.pipe(select(selectPickIds))),
+    switchMap(([{ currentIndex }, pickIds]) => {
+      if (pickIds.length === 0) {
+        return of(updateCurrentPickIndexFailure({ error: 'No pickIds found from store' }));
+      }
+      const newIndex = currentIndex % pickIds.length;
+      return this.router.navigate(['/verify-pick', pickIds[newIndex]]).then(() => {
+        return updateCurrentPickIndexSuccess({ currentIndex: newIndex });
+      }).catch(error => updateCurrentPickIndexFailure({ error }));
     }),
     catchError(error => of(updateCurrentPickIndexFailure({ error })))
   ));
