@@ -34,14 +34,14 @@ export class VerifyPickLineComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const selectOrderSub = this.store.select(selectAllOrders).subscribe((orders: any) => {
+    const selectOrderSub$ = this.store.select(selectAllOrders).subscribe((orders: any) => {
       if (!orders?.length) {
         this.store.dispatch(loadOrders());
       } else {
         this.getPicksFromPickListAndLoad(orders);
       }
     });
-    this.subscriptions.push(selectOrderSub);
+    this.subscriptions.push(selectOrderSub$);
     this.route.params.subscribe((params: { [x: string]: any; }) => {
       this.pickId = Number(params['pickId']);
       this.store.dispatch(loadCurrentPick({ currentPickId: this.pickId }))
@@ -75,7 +75,6 @@ export class VerifyPickLineComponent implements OnInit, OnDestroy {
   }
   private getPicksFromPickListAndLoad(orders: { itemNames: any[]; }[]) {
     const pickIds = orders.flatMap((order: { itemNames: any[]; }) => order.itemNames.map(item => item.pickId));
-    console.log('Hit pick ids: ', pickIds);
     this.store.dispatch(loadPickIds({ pickIds }))
   }
 }

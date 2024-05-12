@@ -8,7 +8,7 @@ Base = declarative_base()
 class ProductMaster(Base):
     __tablename__ = 'product_master'
     sku = Column(Integer, primary_key=True)
-    dinner_title = Column(String)
+    title = Column(String)
     location_id = Column(String)
     on_hand = Column(Integer)
     order_lines = relationship("OrderLines", back_populates="product_master", lazy="selectin")
@@ -28,6 +28,6 @@ class OrderLines(Base):
 class Orders(Base):
     __tablename__ = 'orders'
     order_number = Column(String, primary_key=True)
-    fake_name = Column(String)
+    name = Column(String)
     order_date = Column(String)
     order_lines = relationship("OrderLines", back_populates="orders", lazy="selectin")

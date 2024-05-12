@@ -1,13 +1,16 @@
 from models.models import Orders, OrderLines, ProductMaster
-from database import get_async_db
-from sqlalchemy import select
+from database import get_session
+from sqlalchemy import select, exists
 
 class PickRepository:
     def __init__(self, db):
         self.db = db
 
     async def get_orders_with_order_lines(self):
-        result = await self.db.execute(select(Orders))
+        query = (
+            select(Orders)
+        )
+        result = await self.db.execute(query)
         return result.scalars().all()
 
     async def get_order_lines(self, order_number):

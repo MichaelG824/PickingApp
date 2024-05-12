@@ -7,7 +7,7 @@
    'green': item?.status === 'Picked',
    'red': item?.status === 'Exception'
 }" (click)="navigateToDetail(item.pickId)">
-      <h4>{{ item.dinnerTitle }}</h4>
+      <h4>{{ item.title }}</h4>
       <p>SKU: {{ item.sku }}</p>
       <p>Location: {{ item.location }}</p>
       <p>Pick Qty: {{ item.pickQty }}</p>

@@ -1,4 +1,4 @@
-pick_id,order_number,sku,location,pick_qty
+PickId,Order Number,Sku,Location,Pick Qty
 1001,ORD0003,997580,9PL1,2
 1006,ORD0003,270068,JV2J,1
 1021,ORD0003,766734,S62T,3

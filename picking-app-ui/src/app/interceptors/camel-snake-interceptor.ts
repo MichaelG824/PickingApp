@@ -8,9 +8,11 @@ import { decamelizeKeys, camelizeKeys } from 'humps';
 export class CamelSnakeInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const modifiedReq = req.clone({ body: decamelizeKeys(req.body) });
+    console.log('Modified Request: ', modifiedReq);
     return next.handle(modifiedReq).pipe(
       map(event => {
         if (event instanceof HttpResponse && event.body) {
+          console.log('Received response', event);
           return event.clone({ body: camelizeKeys(event.body) });
         }
         return event;
