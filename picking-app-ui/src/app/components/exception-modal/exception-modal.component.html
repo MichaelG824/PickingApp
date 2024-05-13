@@ -1,5 +1,11 @@
-<!-- exception-modal.component.html -->
-<h1>Enter Exception Details</h1>
-<textarea [(ngModel)]="exceptionReason" cols="30" rows="10"></textarea>
-<button (click)="onNoClick()">Cancel</button>
-<button (click)="dialogRef.close(exceptionReason)">Submit Exception</button>
+<div class="exception-modal">
+  <h1 class="exception-modal-header">Please Enter Exception Details</h1>
+  <div class="text-area-container">
+    <textarea [(ngModel)]="exceptionReason" class="box-sizing-border"></textarea>
+  </div>
+  <div class="button-container">
+    <button (click)="onNoClick()" class="cancel-button">Cancel</button>
+    <button (click)="dialogRef.close(exceptionReason)" [disabled]="!exceptionReason" class="submit-exception-button">Submit Exception</button>
+  </div>
+</div>
+

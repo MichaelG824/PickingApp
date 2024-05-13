@@ -69,7 +69,7 @@ export class VerifyPickLineComponent implements OnInit, OnDestroy {
     this.store.dispatch(updateCurrentPickIndex({ currentIndex: this.pickIndex + 1 }));
   }
 
-  handlePickSubmission(pickInfo: any) {
+  handlePickSubmission() {
     this.store.dispatch(updateCurrentPick({ currentPickId: this.pickId, status: 'Picked' }));
     this.store.dispatch(updateCurrentPickIndex({ currentIndex: this.pickIndex + 1 }));
   }

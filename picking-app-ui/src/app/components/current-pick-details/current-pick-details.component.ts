@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {NgForOf} from "@angular/common";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-current-pick-details',
@@ -13,5 +14,10 @@ import {NgForOf} from "@angular/common";
 export class CurrentPickDetailsComponent {
   @Input() currentPick: any;
 
-  constructor() {}
+  constructor(private router: Router) {}
+
+  public async navigateToPickList() {
+    await this.router.navigate(['/pick-list']);
+
+  }
 }

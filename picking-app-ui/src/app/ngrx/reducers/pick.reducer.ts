@@ -2,7 +2,6 @@ import {createReducer, on} from "@ngrx/store";
 import {
   loadCurrentPickSuccess,
   loadPickIdsSuccess,
-  updateCurrentPickIndex,
   updateCurrentPickIndexSuccess
 } from "../action/pick.actions";
 

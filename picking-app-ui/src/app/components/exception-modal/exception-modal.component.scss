@@ -1,0 +1,57 @@
+.exception-modal {
+  height: 400px;
+  width: 700px;
+}
+
+.button-container {
+  text-align: center;
+}
+
+.box-sizing-border {
+  width: 500px;
+  height: 200px;
+  resize: none;
+}
+
+.text-area-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+
+.cancel-button {
+  background-color: black;
+  width: 200px;
+  height: 40px;
+  color: white;
+  border-radius: 5px;
+  font-size: 20px;
+  margin-right: 50px;
+}
+
+.submit-exception-button {
+  background-color: black;
+  width: 200px;
+  height: 40px;
+  color: white;
+  border-radius: 5px;
+  font-size: 20px;
+  margin-left: 50px;
+}
+
+.exception-modal-header {
+  text-align: center;
+}
+
+button:disabled,
+button[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
+button:hover {
+  cursor: pointer;
+}

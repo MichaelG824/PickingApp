@@ -1,0 +1,22 @@
+.current-pick-details {
+  padding: 40px 0;
+  text-align: center;
+}
+
+.back-to-pick-list {
+  padding: 5px 10px 5px 10px;
+  background-color: orange;
+  border-color: orange;
+  margin-left: 30px;
+  margin-top: 30px;
+}
+
+.back-to-pick-list:hover {
+  background-color: #9aa0a6;
+  cursor: pointer;
+}
+
+button {
+  font-family: 'Poppins', sans-serif;
+  border-radius: 5px;
+}

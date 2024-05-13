@@ -16,7 +16,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideHttpClient(withInterceptorsFromDi()),
-    provideStore({ orders: orderReducer, picks: pickReducer }), // Provide the feature state key
+    provideStore({ orders: orderReducer, picks: pickReducer }),
     provideEffects([OrderEffects, PickEffects]),
     provideOrderSelectors(),
     providePickSelectors(),

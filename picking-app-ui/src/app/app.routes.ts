@@ -7,4 +7,3 @@ export const routes: Routes = [
   { path: 'verify-pick/:pickId', component: VerifyPickLineComponent },
   { path: '', redirectTo: '/pick-list', pathMatch: 'full' }
 ];
-

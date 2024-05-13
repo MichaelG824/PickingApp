@@ -1,0 +1,59 @@
+
+input {
+  width: 300px;
+  float: right;
+  height: 25px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.pick-form-row {
+  margin-bottom: 20px;
+  margin-right: 150px;
+}
+
+.header {
+  font-size: 24px;
+  font-weight: bold;
+  margin-left: 150px;
+}
+
+.pick-button {
+  background-color: black;
+  width: 150px;
+  height: 40px;
+  color: white;
+  border-radius: 5px;
+  font-size: 20px;
+  margin-right: 100px;
+}
+
+.exception-button {
+  background-color: black;
+  width: 150px;
+  height: 40px;
+  color: white;
+  border-radius: 5px;
+  font-size: 20px;
+  margin-left: 100px;
+}
+
+.button-container {
+  margin-top: 100px;
+  text-align: center;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button:disabled,
+button[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
+
+button {
+  font-family: 'Poppins', sans-serif;
+}

@@ -1,9 +1,11 @@
 <div>
   <h1 class="heading">Picking App</h1>
   <div *ngFor="let order of orders">
-    <h2>Order Number: {{ order.orderNumber }}</h2>
-    <span class="pick-list-name">Name: {{ order.name }}</span>
-    <span>Order Date: {{ order.orderDate }}</span>
+    <div class="order-details">
+      <h2>Order Number: {{ order.orderNumber }}</h2>
+      <span class="pick-list-name">Name: {{ order.name }}</span>
+      <span>Order Date: {{ order.orderDate }}</span>
+    </div>
     <div class="container">
       <div *ngFor="let pick of order.orderLines">
         <app-pick-list-card [pick]="pick" (click)="navigateToDetail(pick.pickId)" />

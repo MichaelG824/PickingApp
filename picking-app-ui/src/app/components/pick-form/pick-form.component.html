@@ -1,20 +1,19 @@
 <form [formGroup]="pickForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="location">Location:</label>
-    <input id="location" type="text" formControlName="location">
+  <div class="pick-form-row">
+    <label class="header" for="location">Location</label>
+    <input  id="location" type="text" formControlName="location" placeholder="Please enter current pick location">
   </div>
-  <div>
-    <label for="sku">SKU:</label>
-    <input id="sku" type="text" formControlName="sku">
+  <div class="pick-form-row">
+    <label class="header" for="skuOrTitle">SKU | Title</label>
+    <input id="skuOrTitle" type="text" formControlName="skuOrTitle" placeholder="Please enter current pick sku or title">
   </div>
-  <div>
-    <label for="title">Title:</label>
-    <input id="title" type="text" formControlName="title">
+  <div class="pick-form-row">
+    <label class="header" for="quantity">Quantity</label>
+    <input id="quantity" type="number" formControlName="quantity" placeholder="Please enter current pick quantity">
   </div>
-  <div>
-    <label for="quantity">Quantity:</label>
-    <input id="quantity" type="number" formControlName="quantity">
+  <div class="button-container">
+    <button type="submit" class="pick-button" [disabled]="!pickForm.valid">Pick</button>
+    <button type="button" class="exception-button" (click)="openExceptionModal()">Exception</button>
   </div>
-  <button type="submit" [disabled]="!pickForm.valid">Pick</button>
-  <button type="button" (click)="openExceptionModal()">Exception</button>
+
 </form>

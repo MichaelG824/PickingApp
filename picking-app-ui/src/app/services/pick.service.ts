@@ -6,15 +6,14 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PickService {
-  BASE_URL = 'http://0.0.0.0:8000'
+  BASE_URL = 'http://0.0.0.0:8000/api/v1'
   constructor(private http: HttpClient) { }
 
   getCurrentPick(id: any): Observable<any> {
-    console.log('Get Current Pick ID: ', id);
-    return this.http.get(`${this.BASE_URL}/api/v1/picks/${id}`);
+    return this.http.get(`${this.BASE_URL}/picks/${id}`);
   }
 
   updateCurrentPick(pickId: number, status: string, exceptionDetails: string | undefined): Observable<any> {
-    return this.http.put(`${this.BASE_URL}/api/v1/picks/update-status-and-exception-details`, { pickId, status, exceptionDetails });
+    return this.http.put(`${this.BASE_URL}/picks/update-status-and-exception-details`, { pickId, status, exceptionDetails });
   }
 }
