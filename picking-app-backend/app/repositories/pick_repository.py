@@ -15,12 +15,6 @@ class PickRepository:
             .distinct(Orders.order_number))
         return result.scalars().all()
 
-    async def get_pick_by_id(self, pick_id: int) -> OrderLines:
-        result = await self.session.execute(
-            select(OrderLines).join(ProductMaster).filter(OrderLines.pick_id == pick_id)
-        )
-        return result.scalars().first()
-
     async def get_order_line_by_pick_id(self, pick_id: int) -> OrderLines:
         result = await self.session.execute(
             select(OrderLines).filter(OrderLines.pick_id == pick_id)

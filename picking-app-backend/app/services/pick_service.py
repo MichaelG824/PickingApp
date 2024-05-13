@@ -2,7 +2,7 @@ from repositories.pick_repository import PickRepository
 from dtos.requests.update_status_request_dto import UpdateStatusRequestDto
 from dtos.responses.get_pick_by_id_response_dto import GetPickByIdResponseDto
 from transformers.model_to_dto import transform_to_get_pick_by_id_response_dto, transform_pick_list_model_to_dto
-from transformers.record_to_model import transform_pick_record_to_model, transform_order_record_to_pick_list_data_model
+from transformers.record_to_model import transform_order_line_record_to_pick_model, transform_order_record_to_pick_list_data_model
 from dtos.responses.pick_list_data_response_dto import PickListDataResponseDto
 
 class PickService:
@@ -21,8 +21,8 @@ class PickService:
         return { "pick_list_data": pick_list_data_result }
 
     async def get_pick_by_id(self, pick_id: str) -> GetPickByIdResponseDto:
-        pick_record = await self.pick_repository.get_order_line_by_pick_id(int(pick_id))
-        pick_model = transform_pick_record_to_model(pick_record)
+        order_line = await self.pick_repository.get_order_line_by_pick_id(int(pick_id))
+        pick_model = transform_order_line_record_to_pick_model(order_line)
         if not pick_model:
             raise Exception("Pick Model not found")
         return transform_to_get_pick_by_id_response_dto(pick_model)

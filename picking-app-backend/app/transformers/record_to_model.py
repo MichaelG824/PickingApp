@@ -2,7 +2,7 @@ from models.pick_model import PickModel
 from models.pick_list_data_model import OrderLineModel, PickListDataModel
 from models.db_table_model import Orders
 
-def transform_pick_record_to_model(pick_record) -> PickModel:
+def transform_order_line_record_to_pick_model(pick_record) -> PickModel:
     return PickModel(
        location=pick_record.location,
        order_number=pick_record.order_number,
