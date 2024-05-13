@@ -7,13 +7,13 @@ def convert_to_snake_case(s: str) -> str:
         sub('([A-Z]+)', r' \1',
         s.replace('-', ' '))).split()).lower()
 
-def preprocess_data(df, table_name):
-    df.columns = [convert_to_snake_case(col) for col in df.columns]
+def preprocess_data(data_frame, table_name):
+    data_frame.columns = [convert_to_snake_case(col) for col in data_frame.columns]
     if table_name == 'orders':
-        df = df.rename(columns={'fake_name': 'name'})
+        data_frame = data_frame.rename(columns={'fake_name': 'name'})
     elif table_name == 'product_master':
-        df = df.rename(columns={'dinner_title': 'title'})
-    return df
+        data_frame = data_frame.rename(columns={'dinner_title': 'title'})
+    return data_frame
 
 def new_pick_ids_for_duplicates(order_lines):
     max_id = order_lines['pick_id'].max() if 'pick_id' in order_lines.columns else 0

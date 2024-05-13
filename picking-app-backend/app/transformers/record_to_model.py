@@ -1,15 +1,15 @@
 from models.pick_model import PickModel
 from models.pick_list_data_model import OrderLineModel, PickListDataModel
-from models.db_table_model import Orders
+from models.db_table_model import Orders, OrderLines
 
-def transform_order_line_record_to_pick_model(pick_record) -> PickModel:
+def transform_order_line_record_to_pick_model(order_line: OrderLines) -> PickModel:
     return PickModel(
-       location=pick_record.location,
-       order_number=pick_record.order_number,
-       pick_id=pick_record.pick_id,
-       pick_qty=pick_record.pick_qty,
-       sku=pick_record.sku,
-       title=pick_record.product_master.title
+       location=order_line.location,
+       order_number=order_line.order_number,
+       pick_id=order_line.pick_id,
+       pick_qty=order_line.pick_qty,
+       sku=order_line.sku,
+       title=order_line.product_master.title
     )
 
 def transform_order_record_to_pick_list_data_model(order: Orders) -> PickListDataModel:

@@ -3,7 +3,6 @@ input {
   width: 300px;
   float: right;
   height: 25px;
-  font-family: 'Poppins', sans-serif;
 }
 
 .pick-form-row {
@@ -54,6 +53,6 @@ button[disabled]{
 }
 
 
-button {
+* {
   font-family: 'Poppins', sans-serif;
 }

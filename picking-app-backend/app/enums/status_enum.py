@@ -1,6 +1,6 @@
-from enum import Enum as PyEnum
+from enum import Enum
 
-class StatusEnum(str, PyEnum):
+class StatusEnum(str, Enum):
     Pending = "Pending"
     Picked = "Picked"
     Exception = "Exception"
