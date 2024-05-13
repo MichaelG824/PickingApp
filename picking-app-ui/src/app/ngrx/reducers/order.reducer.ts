@@ -1,6 +1,6 @@
 // src/app/store/reducers/order.reducer.ts
 import { createReducer, on } from '@ngrx/store';
-import {loadOrdersSuccess} from "../action/order.actions";
+import {loadPickListDataSuccess} from "../action/pick-list.actions";
 
 export interface OrderState {
   orders: any[];
@@ -16,7 +16,7 @@ export const initialState: OrderState = {
 
 export const orderReducer = createReducer(
   initialState,
-  on(loadOrdersSuccess, (state, { orders }) => {
+  on(loadPickListDataSuccess, (state, { orders }) => {
     console.log('hit orders reducer: ', orders);
     return ({
       ...state,
