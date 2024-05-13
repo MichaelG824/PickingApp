@@ -9,9 +9,9 @@ import {
 import {selectCurrentPick, selectCurrentPickIndex, selectPickIds} from "../../ngrx/selectors/pick.selector";
 import {PickFormComponent} from "../pick-form/pick-form.component";
 import {CurrentPickDetailsComponent} from "../current-pick-details/current-pick-details.component";
-import {selectAllOrders} from "../../ngrx/selectors/order.selector";
 import {Subscription} from "rxjs";
 import {loadPickListData} from "../../ngrx/action/pick-list.actions";
+import {selectPickListData} from "../../ngrx/selectors/pick-list.selector";
 
 @Component({
   selector: 'app-verify-pick-line',
@@ -34,7 +34,7 @@ export class VerifyPickLineComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const selectOrderSub$ = this.store.select(selectAllOrders).subscribe((orders: any) => {
+    const selectOrderSub$ = this.store.select(selectPickListData).subscribe((orders: any) => {
       if (!orders?.length) {
         this.store.dispatch(loadPickListData());
       } else {

@@ -6,7 +6,7 @@ import {loadPickListDataFailure, loadPickListData, loadPickListDataSuccess} from
 import {PickService} from "../../services/pick.service";
 
 @Injectable()
-export class OrderEffects {
+export class PickListEffects {
   constructor(
     private actions$: Actions,
     private pickService: PickService,
@@ -16,8 +16,8 @@ export class OrderEffects {
     ofType(loadPickListData),
     mergeMap(() => this.pickService.getPickListData()
       .pipe(
-        map(orders => {
-          return loadPickListDataSuccess({ orders })
+        map(pickListData => {
+          return loadPickListDataSuccess({ pickListData })
         }),
         catchError(error => of(loadPickListDataFailure({ error })))
       ))
