@@ -8,7 +8,7 @@
     </div>
     <div class="container">
       <div *ngFor="let pick of order.orderLines">
-        <app-pick-list-card [pick]="pick" (click)="navigateToDetail(pick.pickId)" />
+        <app-pick-list-card [pick]="pick" (click)="navigateToVerifyPage(pick.pickId)" />
       </div>
     </div>
     <hr>

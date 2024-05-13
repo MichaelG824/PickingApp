@@ -26,7 +26,7 @@ export class PickEffects {
     private actions$: Actions,
     private pickService: PickService,
     private router: Router,
-    private store: Store
+    private store: Store,
   ) {}
 
   loadCurrentPick$ = createEffect(() => this.actions$.pipe(
@@ -44,7 +44,6 @@ export class PickEffects {
     mergeMap(({ currentPickId, status, exceptionDetails }) => this.pickService.updateCurrentPick(currentPickId, status, exceptionDetails)
       .pipe(
         map(pick => {
-          console.log('hit update current pick', pick);
           return updateCurrentPickSuccess({ currentPick: pick })
         }),
         catchError(error => of(loadCurrentPickFailure({ error })))

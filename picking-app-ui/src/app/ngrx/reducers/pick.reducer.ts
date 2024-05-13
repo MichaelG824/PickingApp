@@ -24,7 +24,6 @@ export const initialState: PickState = {
 export const pickReducer = createReducer(
   initialState,
   on(loadCurrentPickSuccess, (state, { currentPick }) => {
-    console.log('hit current pick reducer: ', currentPick);
     return ({
       ...state,
       currentPick: currentPick,
@@ -41,7 +40,6 @@ export const pickReducer = createReducer(
     })
   }),
   on(updateCurrentPickIndexSuccess, (state, { currentIndex }) => {
-    console.log('Current Index: ', currentIndex);
     return ({
       ...state,
       currentIndex,

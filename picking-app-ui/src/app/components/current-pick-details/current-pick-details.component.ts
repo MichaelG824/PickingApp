@@ -18,6 +18,5 @@ export class CurrentPickDetailsComponent {
 
   public async navigateToPickList() {
     await this.router.navigate(['/pick-list']);
-
   }
 }

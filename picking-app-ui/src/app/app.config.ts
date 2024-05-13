@@ -11,6 +11,8 @@ import {pickReducer} from "./ngrx/reducers/pick.reducer";
 import {providePickSelectors} from "./ngrx/selectors/pick.selector";
 import {CamelSnakeInterceptor} from "./interceptors/camel-snake-interceptor";
 import {providePickListSelectors} from "./ngrx/selectors/pick-list.selector";
+import {provideToastr} from "ngx-toastr";
+import {provideAnimations} from "@angular/platform-browser/animations";
 
 export const appConfig: ApplicationConfig = {
   providers: [

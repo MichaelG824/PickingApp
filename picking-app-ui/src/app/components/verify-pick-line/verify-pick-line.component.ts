@@ -42,23 +42,28 @@ export class VerifyPickLineComponent implements OnInit, OnDestroy {
       }
     });
     this.subscriptions.push(selectOrderSub$);
-    this.route.params.subscribe((params: { [x: string]: any; }) => {
+    const paramsSub$ = this.route.params.subscribe((params: { [x: string]: any; }) => {
       this.pickId = Number(params['pickId']);
       this.store.dispatch(loadCurrentPick({ currentPickId: this.pickId }))
     });
-    this.store.select(selectCurrentPick).subscribe((currentPick) => {
+    this.subscriptions.push(paramsSub$);
+    const selectCurrentPickSub$ = this.store.select(selectCurrentPick).subscribe((currentPick) => {
       this.currentPick = currentPick;
     });
-    this.store.select(selectCurrentPickIndex).subscribe((pickIndex) => {
+    this.subscriptions.push(selectCurrentPickSub$);
+
+    const currentPickIndexSub$ = this.store.select(selectCurrentPickIndex).subscribe((pickIndex) => {
       this.pickIndex = pickIndex;
     });
+    this.subscriptions.push(currentPickIndexSub$);
 
-    this.store.select(selectPickIds).subscribe((pickIds) => {
+    const selectPickIdsSub$ = this.store.select(selectPickIds).subscribe((pickIds) => {
       const currentIndex= pickIds.indexOf(this.pickId);
       if (currentIndex > -1) {
         this.store.dispatch(updateCurrentPickIndex({ currentIndex }));
       }
     });
+    this.subscriptions.push(selectPickIdsSub$);
   }
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe());
