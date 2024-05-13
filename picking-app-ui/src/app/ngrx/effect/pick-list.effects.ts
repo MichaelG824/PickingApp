@@ -16,8 +16,8 @@ export class PickListEffects {
     ofType(loadPickListData),
     mergeMap(() => this.pickService.getPickListData()
       .pipe(
-        map(pickListData => {
-          return loadPickListDataSuccess({ pickListData })
+        map(res => {
+          return loadPickListDataSuccess({ pickListData: res?.pickListData })
         }),
         catchError(error => of(loadPickListDataFailure({ error })))
       ))

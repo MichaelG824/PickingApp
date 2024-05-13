@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from typing import List, Optional
 
-class OrderLineDTO(BaseModel):
+class OrderLineModel(BaseModel):
     title: str
     sku: int
     location: str
@@ -9,8 +9,8 @@ class OrderLineDTO(BaseModel):
     pick_id: int
     status: str
 
-class PickLineDataResponseDto(BaseModel):
+class PickListDataModel(BaseModel):
     order_number: str
     name: str
     order_date: str
-    order_lines: List[OrderLineDTO]
+    order_lines: List[OrderLineModel]

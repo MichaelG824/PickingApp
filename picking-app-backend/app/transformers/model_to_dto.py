@@ -1,6 +1,7 @@
 from dtos.responses.get_pick_by_id_response_dto import GetPickByIdResponseDto
 from models.pick_model import PickModel
-from dtos.responses.pick_line_data_response_dto import PickLineDataResponseDto, OrderLineDTO
+from dtos.responses.pick_list_data_response_dto import PickListDataDto, OrderLineDto
+from models.pick_list_data_model import PickListDataModel
 
 def transform_to_get_pick_by_id_response_dto(pick: PickModel) -> GetPickByIdResponseDto:
     return GetPickByIdResponseDto(
@@ -12,20 +13,20 @@ def transform_to_get_pick_by_id_response_dto(pick: PickModel) -> GetPickByIdResp
         title=pick.title
     )
 
-def transform_order_with_line_data_to_pick_line_data_dto(order) -> PickLineDataResponseDto:
-    pick_line_data_dto = PickLineDataResponseDto(
-        order_number=order.order_number,
-        name=order.name,
-        order_date=order.order_date,
+def transform_pick_list_model_to_dto(pick_model: PickListDataModel) -> PickListDataDto:
+    pick_line_data_dto = PickListDataDto(
+        order_number=pick_model.order_number,
+        name= pick_model.name,
+        order_date= pick_model.order_date,
         order_lines=[
-            OrderLineDTO(
-                title=line.product_master.title,
-                sku=line.product_master.sku,
+            OrderLineDto(
+                title= line.title,
+                sku= line.sku,
                 location=line.location,
                 pick_qty=line.pick_qty,
                 pick_id=line.pick_id,
                 status=line.status
-            ) for line in order.order_lines
+            ) for line in pick_model.order_lines
         ]
     )
     return pick_line_data_dto
