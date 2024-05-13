@@ -1,6 +1,6 @@
-from models.db_table_model import Orders, OrderLines, ProductMaster
+from models.db_table_model import Orders, OrderLines
 from sqlalchemy import select
-from typing import Union, Optional, List
+from typing import Union, List
 from enums.status_enum import StatusEnum
 
 class PickRepository:
